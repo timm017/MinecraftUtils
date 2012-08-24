@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MinecraftUtils" default="makejar" basedir=".">
+	<target name ="makejar" description="Create a jar for the MinecraftUtils project">
+		<jar jarfile="MinecraftUtils.jar" includes="**" basedir="bin">
+		</jar>
+	</target>
+</project>
