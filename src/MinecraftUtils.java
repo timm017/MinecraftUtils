@@ -12,7 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 
-public class MinecraftUtils extends JFrame
+public class MinecraftUtils extends JFrame implements ActionListener
 {
     
     private JTextArea logTextArea = new JTextArea("blah blah", 10, 6);
@@ -49,7 +49,7 @@ public class MinecraftUtils extends JFrame
         JButton exitButton2 = new JButton(icon2);
         JButton exitButton3 = new JButton(icon3);
         JButton exitButton4 = new JButton(icon4);
-        JButton tntButton = new JButton(icon5);
+        JButton tntButton = new JButton("TNT", icon5);
 
         toolbar.add(exitButton);
         toolbar.add(exitButton1);
@@ -58,9 +58,9 @@ public class MinecraftUtils extends JFrame
         toolbar.add(exitButton4);
         toolbar.add(tntButton);
 
-        aboutMenuItem.addActionListener(new aboutListener());
-        exitMenuItem.addActionListener(new exitListener());
-        tntButton.addActionListener(new tntListener());
+        aboutMenuItem.addActionListener(this);
+        exitMenuItem.addActionListener(this);
+        tntButton.addActionListener(this);
 
         add(toolbar, BorderLayout.NORTH);
         add(logScrollPane, BorderLayout.SOUTH);
@@ -71,30 +71,28 @@ public class MinecraftUtils extends JFrame
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    class exitListener implements ActionListener
+    public void actionPerformed(ActionEvent e)
     {
-        @Override
-        public void actionPerformed(ActionEvent arg0)
+        try
         {
-            System.exit(0);
+            System.out.println(e.getActionCommand());
+            // TODO Auto-generated method stub
+            if (e.getActionCommand().compareTo("Exit") == 0)
+            {
+                System.exit(0);
+            }
+            if (e.getActionCommand().compareTo("About") == 0)
+            {
+                JOptionPane.showMessageDialog(null, "Tjmothy");
+            }
+            if (e.getActionCommand().compareTo("TNT") == 0)
+            {
+                logTextArea.append("TNT" + "\n");
+            }
         }
-    }
-    
-    class aboutListener implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent arg0)
+        catch(Exception ex)
         {
-            JOptionPane.showMessageDialog(null, "Tjmothy");
-        }
-    }
-    
-    class tntListener implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent arg0)
-        {
-            logTextArea.append("TNT" + "\n");
+            System.out.println("actionPerformed: " + ex.getMessage());
         }
     }
 
