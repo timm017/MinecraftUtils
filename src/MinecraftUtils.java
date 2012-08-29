@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -40,6 +41,8 @@ public class MinecraftUtils extends JFrame implements ActionListener
         file.add(aboutMenuItem);
         file.add(exitMenuItem);
         JToolBar toolbar = new JToolBar();
+     
+        logTextArea.setMargin(new Insets(10,10,10,10));
         
         //gamertag textfield section
         JPanel gtContent = new JPanel();
@@ -101,6 +104,7 @@ public class MinecraftUtils extends JFrame implements ActionListener
             }
             if (e.getActionCommand().compareTo("TNT") == 0)
             {
+                logTextArea.setText("");
                 String gtText = gtTextField.getText();
                 //Check if Gamertag entry is empty
                 if(gtText.isEmpty())
