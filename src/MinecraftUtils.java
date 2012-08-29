@@ -1,22 +1,27 @@
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import com.tjmothy.model.XBLModel;
 
 public class MinecraftUtils extends JFrame implements ActionListener
 {
-    
-    private JTextArea logTextArea = new JTextArea("blah blah", 10, 6);
+    private JTextArea logTextArea = new JTextArea("", 10, 6);
     private JScrollPane logScrollPane = new JScrollPane(logTextArea);
+    private JTextField gtTextField = new JTextField(20);
 
     public MinecraftUtils()
     {
@@ -26,7 +31,6 @@ public class MinecraftUtils extends JFrame implements ActionListener
     public final void initUI()
     {
         logTextArea.setEditable(false);
-        
         JMenuBar menubar = new JMenuBar();
         JMenu file = new JMenu("File");
         menubar.add(file);
@@ -36,7 +40,16 @@ public class MinecraftUtils extends JFrame implements ActionListener
         file.add(aboutMenuItem);
         file.add(exitMenuItem);
         JToolBar toolbar = new JToolBar();
-
+        
+        //gamertag textfield section
+        JPanel gtContent = new JPanel();
+        JLabel gtLabel = new JLabel("Gamertag: ");
+        JButton gtButton = new JButton("Go");
+        gtContent.setLayout(new FlowLayout());
+        gtContent.add(gtLabel);
+        gtContent.add(gtTextField);
+        gtContent.add(gtButton);
+        
         ImageIcon icon = new ImageIcon("res/cobblestone.png");
         ImageIcon icon1 = new ImageIcon("res/creeper.png");
         ImageIcon icon2 = new ImageIcon("res/diamond_pickaxe.png");
@@ -62,6 +75,7 @@ public class MinecraftUtils extends JFrame implements ActionListener
         exitMenuItem.addActionListener(this);
         tntButton.addActionListener(this);
 
+        add(gtContent, BorderLayout.CENTER);
         add(toolbar, BorderLayout.NORTH);
         add(logScrollPane, BorderLayout.SOUTH);
 
@@ -87,7 +101,9 @@ public class MinecraftUtils extends JFrame implements ActionListener
             }
             if (e.getActionCommand().compareTo("TNT") == 0)
             {
-                logTextArea.append("TNT" + "\n");
+                String gtText = gtTextField.getText();
+                XBLModel xm = new XBLModel(gtText);
+                logTextArea.append(xm.getJSON() + "\n");
             }
         }
         catch(Exception ex)
