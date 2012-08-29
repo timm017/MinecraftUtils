@@ -19,7 +19,7 @@ import com.tjmothy.model.XBLModel;
 
 public class MinecraftUtils extends JFrame implements ActionListener
 {
-    private JTextArea logTextArea = new JTextArea("", 10, 6);
+    private JTextArea logTextArea = new JTextArea("", 15, 10);
     private JScrollPane logScrollPane = new JScrollPane(logTextArea);
     private JTextField gtTextField = new JTextField(20);
 
@@ -102,8 +102,16 @@ public class MinecraftUtils extends JFrame implements ActionListener
             if (e.getActionCommand().compareTo("TNT") == 0)
             {
                 String gtText = gtTextField.getText();
-                XBLModel xm = new XBLModel(gtText);
-                logTextArea.append(xm.getJSON() + "\n");
+                //Check if Gamertag entry is empty
+                if(gtText.isEmpty())
+                {
+                    JOptionPane.showMessageDialog(null, "Enter a gamertag dipshit.");
+                }
+                else
+                {
+                    XBLModel xm = new XBLModel(gtText);
+                    logTextArea.append(xm.getJSON() + "\n");   
+                }
             }
         }
         catch(Exception ex)
